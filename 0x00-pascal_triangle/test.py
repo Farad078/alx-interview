@@ -7,9 +7,10 @@ def factorial(n: int) -> int:
     """this function returns a factorial
     Args: n, input integer
     Return: integer"""
-    if n <= 1:
-        return 1
-    return n * factorial(n - 1)
+    if isinstance(n, int):
+        if n <= 1:
+            return 1
+        return n * factorial(n - 1)
 
 
 """combination function definition"""
@@ -21,11 +22,12 @@ def combination(n: int) -> list:
     Return: arrays of integers"""
     comb_list = []
     r = 0
-    while n - r >= 0:
-        comb = int(factorial(n) / (factorial(n - r) * factorial(r)))
-        comb_list.append(comb)
-        r += 1
-    return comb_list
+    if isinstance(n, int):
+        while n - r >= 0:
+            comb = int(factorial(n) / (factorial(n - r) * factorial(r)))
+            comb_list.append(comb)
+            r += 1
+        return comb_list
 
 
 """pascal triangle definition"""

@@ -9,7 +9,7 @@ def factorial(n: int) -> int:
     Return: integer"""
     if n <= 1:
         return 1
-    return n * factorial(n-1)
+    return n * factorial(n - 1)
 
 
 """combination function definition"""
@@ -37,9 +37,12 @@ def pascal_triangle(n: int):
     Return: pascal"""
     pascal = []
     k = 0
-    if n <= 0:
+    if isinstance(n, int):
+        if n <= 0:
+            return pascal
+        while k < n:
+            pascal.append(combination(k))
+            k += 1
         return pascal
-    while k < n:
-        pascal.append(combination(k))
-        k += 1
-    return pascal
+    else:
+        return pascal

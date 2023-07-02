@@ -1,48 +1,25 @@
-#!/usr/bin/python3
-
-"""factorial function definition"""
-
-
 def factorial(n: int) -> int:
-    """this function returns a factorial
-    Args: n, input integer
-    Return: integer"""
-    if n <= 1:
-        return 1
-    return n * factorial(n - 1)
-
-
-"""combination function definition"""
+    """Returns the factorial of a given integer n."""
+    result = 1
+    for i in range(1, n + 1):
+        result *= i
+    return result
 
 
 def combination(n: int) -> list:
-    """this function returns a combination
-    Args: n, input integer
-    Return: arrays of integers"""
+    """Returns a list of combinations up to a given integer n."""
     comb_list = []
-    r = 0
-    while n - r >= 0:
-        comb = int(factorial(n) / (factorial(n - r) * factorial(r)))
+    for r in range(n + 1):
+        comb = factorial(n) // (factorial(n - r) * factorial(r))
         comb_list.append(comb)
-        r += 1
     return comb_list
 
 
-"""pascal triangle definition"""
-
-
 def pascal_triangle(n: int):
-    """this function returns pascal values
-    Args: n, input integer
-    Return: pascal"""
+    """Returns Pascal's Triangle up to a given integer n."""
     pascal = []
-    k = 0
-    if isinstance(n, int):
-        if n <= 0:
-            return pascal
-        while k < n:
-            pascal.append(combination(k))
-            k += 1
+    if not isinstance(n, int) or n <= 0:
         return pascal
-    else:
-        return pascal
+    for k in range(n):
+        pascal.append(combination(k))
+    return pascal

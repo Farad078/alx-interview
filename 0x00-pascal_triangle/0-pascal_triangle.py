@@ -25,6 +25,8 @@ def combination(n):
 def pascal_triangle(n):
     pascal = []
     k = 0
+    if n <= 0:
+        return pascal
     while k < n:
         pascal.append(combination(k))
         k += 1

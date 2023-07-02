@@ -1,27 +1,50 @@
 #!/usr/bin/python3
-""" Module to generate Pascals triangle in an array """
+
+"""factorial function definition"""
 
 
-def pascal_triangle(n):
-    """
-    function to find pascals triangle
+def factorial(n: int) -> int:
+    """this function returns a factorial
+    Args: n, input integer
+    Return: integer"""
+    if isinstance(n, int):
+        if n <= 1:
+            return 1
+        return n * factorial(n - 1)
 
-        Args:
-            n: integer numbers of rows to generate
 
-        Return:
-            base: pascal_triangle in an array
-    """
-    if n <= 0:
-        return []
+"""combination function definition"""
 
-    base = [[1]]
 
-    for i in range(1, n):
-        row = [1]
-        for j in range(1, i):
-            row.append(base[i - 1][j - 1] + base[i - 1][j])
-        row.append(1)
-        base.append(row)
+def combination(n: int) -> list:
+    """this function returns a combination
+    Args: n, input integer
+    Return: arrays of integers"""
+    comb_list = []
+    r = 0
+    if isinstance(n, int):
+        while n - r >= 0:
+            comb = int(factorial(n) / (factorial(n - r) * factorial(r)))
+            comb_list.append(comb)
+            r += 1
+        return comb_list
 
-    return base
+
+"""pascal triangle definition"""
+
+
+def pascal_triangle(n: int):
+    """this function returns pascal values
+    Args: n, input integer
+    Return: pascal"""
+    pascal = []
+    k = 0
+    if isinstance(n, int):
+        if n <= 0:
+            return []
+        while k < n:
+            pascal.append(combination(k))
+            k += 1
+        return pascal
+    else:
+        return pascal

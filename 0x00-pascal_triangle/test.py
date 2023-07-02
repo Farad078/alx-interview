@@ -41,7 +41,7 @@ def pascal_triangle(n: int):
     k = 0
     if isinstance(n, int):
         if n <= 0:
-            return pascal
+            return []
         while k < n:
             pascal.append(combination(k))
             k += 1

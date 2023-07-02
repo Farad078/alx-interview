@@ -1,4 +1,3 @@
-#!/bin/usr/python3
 import math
 
 """ another way using n!/((n-k)! * k!) to generate

@@ -31,14 +31,14 @@ def combination(n: int) -> list:
 """pascal triangle definition"""
 
 
-def pascal_triangle(n: int) -> list:
+def pascal_triangle(n: int):
     """this function returns pascal values
     Args: n, input integer
     Return: pascal"""
     pascal = []
     k = 0
     if n <= 0:
-        return [[]]
+        return []
     while k < n:
         pascal.append(combination(k))
         k += 1

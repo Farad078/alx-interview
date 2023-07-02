@@ -22,7 +22,7 @@ def combination(n: int) -> list:
     Return: arrays of integers"""
     comb_list = []
     r = 0
-    if isinstance(n,int):
+    if isinstance(n, int):
         while n - r >= 0:
             comb = int(factorial(n) / (factorial(n - r) * factorial(r)))
             comb_list.append(comb)

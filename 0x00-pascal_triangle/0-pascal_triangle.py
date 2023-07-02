@@ -1,45 +1,34 @@
 #!/bin/usr/python3
+import math
 
-"""factorial function definition"""
-
-
-def factorial(n: int) -> int:
-    """this function returns a factorial
-    Args: n, input integer
-    Return: integer"""
-    if n <= 1:
-        return 1
-    return n * factorial(n-1)
+""" another way using n!/((n-k)! * k!) to generate
+coefficients but requires importing maths.
+"""
 
 
-"""combination function definition"""
+def pascal_triangle(n):
+    """
+    a function that takes in an integer n
 
+    parameters:
+        n(int) - input number of rows to generate
 
-def combination(n: int) -> list:
-    """this function returns a combination
-    Args: n, input integer
-    Return: arrays of integers"""
-    comb_list = []
-    r = 0
-    while n - r >= 0:
-        comb = int(factorial(n) / (factorial(n - r) * factorial(r)))
-        comb_list.append(comb)
-        r += 1
-    return comb_list
-
-
-"""pascal triangle definition"""
-
-
-def pascal_triangle(n: int) -> list:
-    """this function returns pascal values
-    Args: n, input integer
-    Return: pascal"""
-    pascal = []
-    k = 0
+    Return:
+        triangle - pascals triangle of be generated
+    """
     if n <= 0:
         return []
-    while k < n:
-        pascal.append(combination(k))
-        k += 1
-    return pascal
+
+    triangle = []
+
+    for i in range(n):
+        row = []
+        for j in range(i + 1):
+            coefficient = (math.factorial(i) //
+                           (math.factorial(j) * math.factorial(i - j)))
+
+            row.append(coefficient)
+            " add coeffient to that row empty array "
+        triangle.append(row)
+
+    return triangle

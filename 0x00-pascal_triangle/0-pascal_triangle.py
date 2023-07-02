@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+
+
 def factorial(n: int) -> int:
     """Returns the factorial of a given integer n."""
     result = 1

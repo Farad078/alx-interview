@@ -12,7 +12,7 @@ def canUnlockAll(boxes: list) -> bool:
     # Iterate through the open Box
     for box in openbox:
         for key in box:
-            if key <= len(boxes) - 1:
+            if len(boxes) - 1 >= key >= 1:
                 if boxes[key] not in openbox:
                     openbox.append(boxes[key])
     if len(openbox) == len(boxes):

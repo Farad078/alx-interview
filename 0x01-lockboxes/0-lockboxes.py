@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+
 def canUnlockAll(boxes: list) -> bool:
     """a function that unlock boxes.
     Arg: Array of arrays

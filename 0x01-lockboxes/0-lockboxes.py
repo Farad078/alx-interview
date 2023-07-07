@@ -1,17 +1,25 @@
 #!/usr/bin/python3
 
 
-def canUnlockAll(boxes):
-    n = len(boxes)  # Total number of boxes
-    unlocked = [False] * n  # Track the unlocked status of each box
-    unlocked[0] = True  # The first box is already unlocked
-    stack = [0]  # Start with the first box
+def canUnlockAll(boxes: list) -> bool:
+    """a function that unlock boxes.
+    Arg: Array of arrays
+    returns: boolean"""
 
-    while stack:
-        box = stack.pop()
-        for key in boxes[box]:
-            if key < n and not unlocked[key]:
-                unlocked[key] = True
-                stack.append(key)
+    # Empty array
+    openbox = [boxes[0]]
 
-    return all(unlocked)
+    # Iterate through the open Box
+    for box in openbox:
+        if len(box) > 0:
+            for key in box:
+                if isinstance(key, int):
+                    if len(boxes) - 1 >= key >= 1:
+                        if boxes[key] not in openbox:
+                            openbox.append(boxes[key])
+                else:
+                    return False
+    if len(openbox) == len(boxes):
+        return True
+    return False
+

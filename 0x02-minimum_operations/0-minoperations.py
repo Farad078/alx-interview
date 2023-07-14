@@ -18,14 +18,15 @@ def minOperations(n: int) -> int:
     """a function that calculates the fewest number of operations
     needed to result in exactly n H characters in the file."""
     counter = 0
-    if not prime(n):
-        while n > 1:
-            if n % 2 == 0:
-                n /= 2
-                counter += 2
-            else:
-                n -= 1
-                counter += 1
-    else:
-        return n
-    return counter
+    if isinstance(n, int):
+        if not prime(n):
+            while n > 1:
+                if n % 2 == 0:
+                    n /= 2
+                    counter += 2
+                else:
+                    n -= 1
+                    counter += 1
+        else:
+            return n
+        return counter

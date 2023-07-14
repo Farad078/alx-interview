@@ -1,32 +1,25 @@
 #!/usr/bin/python3
-from typing import List
+""" Module for 0-minoperations"""
 
 
-def prime(n: int) -> bool:
-    """a function that detects prime number"""
-    counter = 0
-    for i in range(1, n+1):
-        if n % i == 0:
-            counter += 1
-    if counter == 2:
-        return True
-    else:
-        return False
-
-
-def minOperations(n: int) -> int:
-    """a function that calculates the fewest number of operations
-    needed to result in exactly n H characters in the file."""
-    counter = 0
-    if isinstance(n, int):
-        if not prime(n):
-            while n > 1:
-                if n % 2 == 0:
-                    n /= 2
-                    counter += 2
-                else:
-                    n -= 1
-                    counter += 1
-        else:
-            return n
-        return counter
+def minOperations(n):
+    """
+    minOperations
+    Gets fewest # of operations needed to result in exactly n H characters
+    """
+    # all outputs should be at least 2 char: (min, Copy All => Paste)
+    if n < 2:
+        return 0
+    ops, root = 0, 2
+    while root <= n:
+        # if n evenly divides by root
+        if n % root == 0:
+            # total even-divisions by root = total operations
+            ops += root
+            # set n to the remainder
+            n = n / root
+            # reduce root to find remaining smaller vals that evenly-divide n
+            root -= 1
+        # increment root until it evenly-divides n
+        root += 1
+    return ops

@@ -1,54 +1,43 @@
-#!/usr/bin/python3
-
 import sys
+import signal
+
+stat_code = {"200", "301", "400", "401", "403", "404", "405", "500"}
+file_sizes = []
+status_code_counts = {code: 0 for code in stat_code}
 
 
-def print_msg(dict_sc, total_file_size):
-    """
-    Method to print
-    Args:
-        dict_sc: dict of status codes
-        total_file_size: total of the file
-    Returns:
-        Nothing
-    """
-
-    print("File size: {}".format(total_file_size))
-    for key, val in sorted(dict_sc.items()):
-        if val != 0:
-            print("{}: {}".format(key, val))
+def print_statistics():
+    total_size = sum(file_sizes)
+    print(f"Total file size: {total_size}")
+    for code in sorted(status_code_counts.keys(), key=int):
+        count = status_code_counts[code]
+        if count > 0:
+            print(f"{code}: {count}")
+    print()
 
 
-total_file_size = 0
-code = 0
-counter = 0
-dict_sc = {"200": 0,
-           "301": 0,
-           "400": 0,
-           "401": 0,
-           "403": 0,
-           "404": 0,
-           "405": 0,
-           "500": 0}
+def signal_handler(sig, frame):
+    print("\nKeyboard interruption detected. Printing statistics:")
+    print_statistics()
+    sys.exit(0)
+
+
+signal.signal(signal.SIGINT, signal_handler)
 
 try:
-    for line in sys.stdin:
-        parsed_line = line.split()  # ✄ trimming
-        parsed_line = parsed_line[::-1]  # inverting
+    for line_number, line in enumerate(sys.stdin, 1):
+        line = line.strip()
+        parts = line.split()
+        if len(parts) == 10 and parts[8].isdigit() and parts[7] in stat_code:
+            file_size = int(parts[8])
+            status_code = parts[7]
+            file_sizes.append(file_size)
+            status_code_counts[status_code] += 1
 
-        if len(parsed_line) > 2:
-            counter += 1
+        if line_number % 10 == 0:
+            print(f"Statistics after {line_number} lines:")
+            print_statistics()
 
-            if counter <= 10:
-                total_file_size += int(parsed_line[0])  # file size
-                code = parsed_line[1]  # status code
-
-                if code in dict_sc.keys():
-                    dict_sc[code] += 1
-
-            if counter == 10:
-                print_msg(dict_sc, total_file_size)
-                counter = 0
-
-finally:
-    print_msg(dict_sc, total_file_size)
+except KeyboardInterrupt:
+    print("\nKeyboard interruption detected. Printing statistics:")
+    print_statistics()
